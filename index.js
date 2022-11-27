@@ -1,6 +1,7 @@
 import { debounce } from "./debounce.js";
 
 const inputEl = document.querySelector("input");
+const btnEl = document.querySelector("button");
 
 let times = 0;
 function inputHandle(event) {
@@ -13,8 +14,8 @@ function inputHandle(event) {
 // #region tip: debounce
 
 // 包装后的新函数
-const fn = debounce(inputHandle, 2000, true);
+const fn = debounce(inputHandle, 2000);
 
 inputEl.addEventListener("input", fn);
-
+btnEl.addEventListener("click", fn.cancel);
 // #endregion

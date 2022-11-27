@@ -5,7 +5,7 @@ const debounce = (fn, delay, immediate) => {
   let isInvoke = false;
   // 对原函数包装成一个新函数，并return出去。
   // 新函数为实际被回调的函数。
-  return function (...args) {
+  const _fn = function (...args) {
     // 是否立即执行
     if (immediate && !isInvoke) {
       fn.apply(this, args);
@@ -22,6 +22,15 @@ const debounce = (fn, delay, immediate) => {
       }, delay);
     }
   };
+
+  // 添加取消功能
+  _fn.cancel = () => {
+    if (timer) clearTimeout(timer);
+    timer = null;
+    isInvoke = false;
+  };
+
+  return _fn;
 };
 
 export default debounce;
