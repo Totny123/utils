@@ -13,7 +13,7 @@ function inputHandle(event) {
 // #region tip: debounce
 
 // 包装后的新函数
-const fn = debounce(inputHandle, 2000);
+const fn = debounce(inputHandle, 2000, true);
 
 inputEl.addEventListener("input", fn);
 
