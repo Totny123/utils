@@ -29,7 +29,7 @@ function inputHandle(event) {
 // #endregion
 
 // #region tip: throttle
-const foo = throttle(inputHandle, 2000);
+const foo = throttle(inputHandle, 1000, { leading: false });
 
 inputEl.addEventListener("input", foo);
 
