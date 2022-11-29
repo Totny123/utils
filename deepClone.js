@@ -4,10 +4,6 @@ function isObject(value) {
 }
 
 function deepClone(originValue, map = new WeakMap()) {
-  // Symbol类型
-  if (typeof originValue === "symbol") {
-    return Symbol(originValue.description);
-  }
   // 函数
   if (typeof originValue === "function") {
     return originValue;
@@ -19,6 +15,12 @@ function deepClone(originValue, map = new WeakMap()) {
   // 引用类型
   if (map.has(originValue)) {
     return map.get(originValue);
+  }
+  // Symbol类型
+  if (typeof originValue === "symbol") {
+    const newSymbol = Symbol(originValue.description);
+    map.set(originValue, newSymbol);
+    return newSymbol;
   }
   // Set类型
   if (originValue instanceof Set) {
@@ -70,9 +72,11 @@ const obj = {
   s2: s2,
   set: new Set([1, 2, 3, a]),
   map: new Map([[a, a]]),
+  s3: s2,
+  s4: Symbol(123),
 };
 obj.info = obj;
 const newObj = deepClone(obj);
-// console.log(obj);
 console.log(newObj);
+
 // #endregion
